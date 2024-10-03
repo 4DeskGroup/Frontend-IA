@@ -81,16 +81,18 @@ export default {
 
   .message {
     background-color: #f1f1f1;
+    color: black;
     padding: 10px;
     border-radius: 10px;
-    margin-bottom: 5px;
-    max-width: 70%;
+    margin-bottom: 2rem;
+    max-width: 50%;
+    word-wrap: break-word;
   }
 
   .my-message {
     background-color: #007bff;
     color: white;
-    align-self: flex-end;
+    margin-left: auto; /* Alinha a mensagem inteira à direita */
   }
 
   .input-container {
