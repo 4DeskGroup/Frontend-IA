@@ -7,7 +7,7 @@
         class="message"
         :class="{ 'my-message': message.sender === 'me' }"
       >
-        {{ message.text }}
+        <div v-html="message.text"></div> <!-- {{ message.text }} -->
       </div>
     </div>
     <div class="input-container">
@@ -40,8 +40,9 @@ export default {
             question: novaPergunta.value
           });
           console.log(response)
-          // Adiciona a resposta da API
-          messages.value.push({ text: response.data.answer, sender: 'bot' });
+          
+          const resposta_formatada = response.data.answer.replace(/\n/g, '<br>');
+          messages.value.push({ text: resposta_formatada, sender: 'bot' });
           
         } catch (error) {
           console.error("Erro ao enviar pergunta:", error);
