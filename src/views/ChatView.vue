@@ -33,7 +33,6 @@ export default {
 
     async function enviarPergunta() {
       if (novaPergunta.value.trim() !== "") {
-        // Adiciona a mensagem do usuário
         messages.value.push({ text: novaPergunta.value, sender: 'me' });
         
         try {
@@ -67,6 +66,8 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    width: 190vh;
+    /* position: absolute; */
     justify-content: flex-end;
     padding: 10px;
   }
@@ -80,7 +81,8 @@ export default {
   }
 
   .message {
-    background-color: #f1f1f1;
+    background-color: #f0f5f4;
+    color: black;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 5px;
@@ -90,7 +92,7 @@ export default {
   .my-message {
     background-color: #007bff;
     color: white;
-    align-self: flex-end;
+    margin-left: auto;
   }
 
   .input-container {
