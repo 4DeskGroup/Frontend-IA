@@ -8,7 +8,7 @@
     </div>
     <div class="input-container">
       <input type="text" v-model="novaPergunta" @keyup.enter="enviarPergunta" placeholder="Digite sua mensagem..." />
-      <button @click="enviarPergunta">
+      <button @click="enviarPergunta" disabled=block>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M1.61688 8.66113L1.01288 3.22413C0.839883 1.66813 2.44188 0.525129 3.85688 1.19613L15.8009 6.85413C17.3259 7.57613 17.3259 9.74613 15.8009 10.4681L3.85688 16.1271C2.44188 16.7971 0.839883 15.6551 1.01288 14.0991L1.61688 8.66113ZM1.61688 8.66113H8.61688"
@@ -31,13 +31,14 @@ export default {
 
     async function enviarPergunta() {
       if (novaPergunta.value.trim() !== "") {
-        messages.value.push({ text: novaPergunta.value, sender: 'me' });
+        const valuePergunta = novaPergunta.value
+        novaPergunta.value = ""
+        messages.value.push({ text: valuePergunta, sender: 'me' });
         
         try {
           const response = await Axios.post("http://localhost:8000/ask", {
-            question: novaPergunta.value
+            question: valuePergunta
           });
-          console.log(response)
           
           const resposta_formatada = response.data.answer.replace(/\n/g, '<br>');
           messages.value.push({ text: resposta_formatada, sender: 'bot' });
@@ -46,8 +47,6 @@ export default {
           console.error("Erro ao enviar pergunta:", error);
         }
 
-        // Limpa o campo de input
-        novaPergunta.value = "";
       }
     }
 
@@ -96,6 +95,7 @@ export default {
   /* Permite a quebra de palavras longas */
   white-space: pre-wrap;
   /* Mantém quebras de linha e espaços */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para mensagens */
 }
 
 .my-message {
@@ -106,6 +106,7 @@ export default {
   /* Permite a quebra de palavras longas */
   white-space: pre-wrap;
   /* Mantém quebras de linha e espaços */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para mensagens */
 }
 
 .input-container {
@@ -119,6 +120,7 @@ input {
   border-radius: 20px;
   background-color: #FDFBFF;
   border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para o input */
 }
 
 button {
