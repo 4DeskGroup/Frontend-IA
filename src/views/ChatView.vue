@@ -108,8 +108,9 @@ export default {
 }
 
 .input-container {
+  position: relative; /* Define o contêiner como relativo */
   display: flex;
-  gap: 10px;
+  gap: 10px; /* Mantenha o gap se necessário, mas não afetará a posição do botão */
 }
 
 input {
@@ -119,14 +120,23 @@ input {
   background-color: #FDFBFF;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding-right: 40px; /* Adiciona espaço à direita para o botão */
+}
+
+input:focus {
+  outline: none; /* Remove a borda de foco padrão */
 }
 
 button {
+  position: absolute; /* Faz o botão ficar sobre o input */
+  right: 10px; /* Distância da borda direita */
+  top: 50%; /* Centraliza verticalmente */
+  transform: translateY(-50%); /* Ajusta para centralização perfeita */
   padding: 10px;
-  background-color: #E4E2E6;
+  background-color: transparent;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 50%; /* Faz o botão circular */
   cursor: pointer;
 }
 
