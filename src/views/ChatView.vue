@@ -81,7 +81,9 @@ export default {
 
 .messages {
   flex: 1;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
+  overflow-y: auto; /* Apenas rolagem vertical */
+  overflow-x: hidden; /* Evita rolagem lateral */
   padding: 10px;
   margin-bottom: 10px;
 }
