@@ -55,6 +55,19 @@ export default {
       }
     }
 
+    // async function reiniciar() {
+    //   try {
+    //     await Axios.get("http://localhost:8000/clean");
+    //   } catch (error) {
+    //     console.error("Erro ao reiniciar:", error);
+    //   } 
+    // }
+
+    // // Chama a função reiniciar quando a tela for carregada ou recarregada
+    // onMounted(() => {
+    //   reiniciar();
+    // });
+
     return {
       novaPergunta,
       messages,
