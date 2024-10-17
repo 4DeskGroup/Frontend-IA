@@ -24,6 +24,7 @@
 
 <script>
 import Axios from 'axios';
+import { onMounted } from 'vue';
 import { ref } from 'vue';
 
 export default {
@@ -54,6 +55,19 @@ export default {
         }
       }
     }
+
+     async function reiniciar() {
+       try {
+         await Axios.put("http://localhost:8000/clear");
+       } catch (error) {
+         console.error("Erro ao reiniciar:", error);
+       } 
+     }
+
+     // Chama a função reiniciar quando a tela for carregada ou recarregada
+     onMounted(() => {
+       reiniciar();
+     });
 
     return {
       novaPergunta,
