@@ -1,45 +1,25 @@
 # FrontendAPI
 
-This template should help get you started developing with Vue 3 in Vite.
+Esse repositório contém os arquivos desenvolvidos em Vue e Typescript para o Frontend IA (Projeto integrador do grupo 4Desk da FATEC de São José dos Campos).
 
-## Recommended IDE Setup
+As branches e commits deste projeto aderem ao padrão definido pelo [Conventional Commits](https://conventionalcommits.org) e exemplos de uso estão disponíveis [neste repositório](https://github.com/iuricode/padroes-de-commits).
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Instalação
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+#### Instalar as dependências do projeto
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Rodar a aplicação
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Gerar o build da aplicação
 
 ```sh
 npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
