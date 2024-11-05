@@ -21,14 +21,18 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 100vh) {
   body {
     display: flex;
     place-items: center;
+    background-image: url('../assets/src-fundo-novo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   #app {
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
-}
+} */
