@@ -58,14 +58,10 @@
   font-weight: normal;
 }
 
-body {
+/* body {
   min-height: 100%;
   color: var(--color-text);
   background: #E4E2E6;
-  /* background-image: url('../assets/src-fundo-novo.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -84,6 +80,20 @@ body {
     'Helvetica Neue',
     sans-serif;
   font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #E4E2E6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  color: var(--color-text);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
