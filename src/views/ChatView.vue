@@ -60,10 +60,8 @@ export default {
 
     // Função para formatar o texto com base nos asteriscos
     function formatText(text) {
-      // Substitui **texto** por <strong>texto</strong> para negrito
-      let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>');
-      // Remove os * simples, mas só quando não envolvem negrito
-      formattedText = formattedText.replace(/\*/g, '-');  // Remove * seguido por espaços no início de cada linha
+      let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>'); // Quando o texto vem com ** ** ele transforma para negrito
+      formattedText = formattedText.replace(/\*/g, '-');  // Quando vier apenas um * ele troca para -
 
       return formattedText;
     }
@@ -118,7 +116,7 @@ export default {
 }
 
 .message {
-  background-color: #F8F1FF;
+  background-color: #ffffff;
   color: #775BB4;
   padding: 10px;
   border-radius: 10px;
@@ -130,7 +128,7 @@ export default {
 }
 
 .my-message {
-  background-color: #F8F1FF;
+  background-color: #ffffff;
   color: #838383;
   margin-left: auto;
   word-wrap: break-word;
