@@ -3,7 +3,7 @@
     <div class="messages">
       <div v-for="(message, index) in messages" :key="index" class="message"
         :class="{ 'my-message': message.sender === 'me' }">
-        <div v-html="message.text"></div>
+        <div v-html="formatText(message.text)"></div>
       </div>
       <div v-if="isLoading" class="loading-dots">
         <span class="dot"></span>
@@ -15,7 +15,9 @@
       <input type="text" v-model="novaPergunta" @keyup.enter="enviarPergunta" placeholder="Digite sua mensagem..." />
       <button @click="enviarPergunta" :disabled="!novaPergunta">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1.61688 8.66113L1.01288 3.22413C0.839883 1.66813 2.44188 0.525129 3.85688 1.19613L15.8009 6.85413C17.3259 7.57613 17.3259 9.74613 15.8009 10.4681L3.85688 16.1271C2.44188 16.7971 0.839883 15.6551 1.01288 14.0991L1.61688 8.66113ZM1.61688 8.66113H8.61688" stroke="#B9B9B9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M1.61688 8.66113L1.01288 3.22413C0.839883 1.66813 2.44188 0.525129 3.85688 1.19613L15.8009 6.85413C17.3259 7.57613 17.3259 9.74613 15.8009 10.4681L3.85688 16.1271C2.44188 16.7971 0.839883 15.6551 1.01288 14.0991L1.61688 8.66113ZM1.61688 8.66113H8.61688"
+            stroke="#B9B9B9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
     </div>
@@ -38,14 +40,14 @@ export default {
         const valuePergunta = novaPergunta.value;
         novaPergunta.value = "";
         messages.value.push({ text: valuePergunta, sender: 'me' });
-        
+
         isLoading.value = true; // Inicia a animação de loading
 
         try {
           const response = await Axios.post("http://localhost:8000/ask", {
             question: valuePergunta
           });
-          
+
           const resposta_formatada = response.data.answer.replace(/\n/g, '<br>');
           messages.value.push({ text: resposta_formatada, sender: 'bot' });
         } catch (error) {
@@ -56,24 +58,33 @@ export default {
       }
     }
 
-     async function reiniciar() {
-       try {
-         await Axios.put("http://localhost:8000/clear");
-       } catch (error) {
-         console.error("Erro ao reiniciar:", error);
-       } 
-     }
+    // Função para formatar o texto com base nos asteriscos
+    function formatText(text) {
+      let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>'); // Quando o texto vem com ** ** ele transforma para negrito
+      formattedText = formattedText.replace(/\*/g, '-');  // Quando vier apenas um * ele troca para -
 
-     // Chama a função reiniciar quando a tela for carregada ou recarregada
-     onMounted(() => {
-       reiniciar();
-     });
+      return formattedText;
+    }
+
+    async function reiniciar() {
+      try {
+        await Axios.put("http://localhost:8000/clear");
+      } catch (error) {
+        console.error("Erro ao reiniciar:", error);
+      }
+    }
+
+    // Chama a função reiniciar quando a tela for carregada ou recarregada
+    onMounted(() => {
+      reiniciar();
+    });
 
     return {
       novaPergunta,
       messages,
       isLoading,
-      enviarPergunta
+      enviarPergunta,
+      formatText
     };
   }
 }
@@ -96,14 +107,16 @@ export default {
 .messages {
   flex: 1;
   /*overflow-y: auto;*/
-  overflow-y: auto; /* Apenas rolagem vertical */
-  overflow-x: hidden; /* Evita rolagem lateral */
+  overflow-y: auto;
+  /* Apenas rolagem vertical */
+  overflow-x: hidden;
+  /* Evita rolagem lateral */
   padding: 10px;
   margin-bottom: 10px;
 }
 
 .message {
-  background-color: #F8F1FF;
+  background-color: #ffffff;
   color: #775BB4;
   padding: 10px;
   border-radius: 10px;
@@ -115,7 +128,7 @@ export default {
 }
 
 .my-message {
-  background-color: #F8F1FF;
+  background-color: #ffffff;
   color: #838383;
   margin-left: auto;
   word-wrap: break-word;
@@ -124,9 +137,11 @@ export default {
 }
 
 .input-container {
-  position: relative; /* Define o contêiner como relativo */
+  position: relative;
+  /* Define o contêiner como relativo */
   display: flex;
-  gap: 10px; /* Mantenha o gap se necessário, mas não afetará a posição do botão */
+  gap: 10px;
+  /* Mantenha o gap se necessário, mas não afetará a posição do botão */
 }
 
 input {
@@ -136,23 +151,30 @@ input {
   background-color: #FDFBFF;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding-right: 40px; /* Adiciona espaço à direita para o botão */
+  padding-right: 40px;
+  /* Adiciona espaço à direita para o botão */
 }
 
 input:focus {
-  outline: none; /* Remove a borda de foco padrão */
+  outline: none;
+  /* Remove a borda de foco padrão */
 }
 
 button {
-  position: absolute; /* Faz o botão ficar sobre o input */
-  right: 10px; /* Distância da borda direita */
-  top: 50%; /* Centraliza verticalmente */
-  transform: translateY(-50%); /* Ajusta para centralização perfeita */
+  position: absolute;
+  /* Faz o botão ficar sobre o input */
+  right: 10px;
+  /* Distância da borda direita */
+  top: 50%;
+  /* Centraliza verticalmente */
+  transform: translateY(-50%);
+  /* Ajusta para centralização perfeita */
   padding: 10px;
   background-color: transparent;
   color: white;
   border: none;
-  border-radius: 50%; /* Faz o botão circular */
+  border-radius: 50%;
+  /* Faz o botão circular */
   cursor: pointer;
 }
 
@@ -171,7 +193,8 @@ button:hover {
   width: 8px;
   height: 8px;
   margin: 0 4px;
-  background-color: #775BB4; /* Cinza escuro */
+  background-color: #775BB4;
+  /* Cinza escuro */
   border-radius: 50%;
   animation: bounce 0.6s infinite alternate;
 }
@@ -188,6 +211,7 @@ button:hover {
   from {
     transform: translateY(0);
   }
+
   to {
     transform: translateY(-10px);
   }
