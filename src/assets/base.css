@@ -64,9 +64,13 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100%;
   color: var(--color-text);
   background: #E4E2E6;
+  /* background-image: url('../assets/src-fundo-novo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
   transition:
     color 0.5s,
     background-color 0.5s;
