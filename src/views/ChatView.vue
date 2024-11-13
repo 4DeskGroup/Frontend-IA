@@ -3,7 +3,7 @@
     <div class="messages">
       <div v-for="(message, index) in messages" :key="index" class="message"
         :class="{ 'my-message': message.sender === 'me' }">
-        <div v-html="message.text"></div>
+        <div v-html="formatText(message.text)"></div>
       </div>
       <div v-if="isLoading" class="loading-dots">
         <span class="dot"></span>
@@ -58,6 +58,60 @@ export default {
       showBaloes.value = !showBaloes.value;
     }
 
+    // Array com as perguntas predefinidas
+    const perguntas = [
+      "Quais são os melhores produtos para escritório?",
+      "Me recomende 5 produtos para decoração de sala de estar.",
+      "Quais são os produtos mais bem avaliados para cozinha?",
+      "Me fale sobre os produtos mais populares para crianças.",
+      "Quais produtos são indicados para quem tem pouco espaço em casa?",
+      "Quais são os melhores eletrodomésticos para cozinha?",
+      "Quais são os melhores produtos para organizar a casa?",
+      "Quais são os produtos mais recomendados para quem mora em apartamento?",
+      "Me dê 3 opções de sofás para sala de estar.",
+      "Quais são os melhores produtos para quem tem pets em casa?",
+      "Quais são os produtos com melhor custo-benefício para cama e colchão?",
+      "Quais são os produtos com as melhores avaliações de durabilidade?",
+      "Quais produtos têm a melhor relação custo-benefício para decoração de interiores?",
+      "Quais produtos têm a melhor qualidade de acabamento?",
+      "Quais são os produtos mais recomendados para pessoas com alergia?",
+      "Quais são os melhores produtos de limpeza para casa?",
+      "Me diga os 3 produtos com maior avaliação de resistência no mercado.",
+      "Quais são os melhores modelos de mesa de jantar com bom custo-benefício?",
+      "Quais produtos têm as melhores avaliações sobre desempenho e uso diário?",
+      "Qual é o melhor produto para quem procura uma mesa de escritório durável?",
+      "Quais são os melhores produtos com controle remoto para sala de estar?",
+      "Quais sofás reclináveis têm os melhores reviews?",
+      "Quais são os produtos mais recomendados para iluminação de ambientes internos?",
+      "Quais são as melhores cadeiras ergonômicas para escritório?",
+      "Quais são as melhores cafeteiras automáticas para casa?",
+      "Me fale sobre os melhores sistemas de som para TV.",
+      "Quais produtos para organização de cozinha têm mais funcionalidades?",
+      "Quais são as melhores opções de ventiladores para quarto?",
+      "Quais são os melhores aspiradores de pó para pets?",
+      "Quais são os melhores purificadores de ar?",
+      "Quais produtos estão em promoção para sala de estar?",
+      "Quais são os produtos mais acessíveis em relação a colchões de casal?",
+      "Me recomende produtos baratos e bons para decoração de sala.",
+      "Quais são os produtos mais acessíveis para cozinha, mas de boa qualidade?",
+      "Quais produtos para casa têm os melhores descontos no e-commerce?",
+      "Quais são as melhores ofertas de TVs no mercado?",
+      "Quais são os produtos de decoração mais baratos para um apartamento pequeno?",
+      "Me fale sobre as promoções de móveis para sala.",
+      "Quais são os melhores produtos de jardinagem com preço acessível?",
+      "Quais são as opções de cadeiras de escritório com bom preço?",
+      "Qual é melhor: sofá de couro ou sofá de tecido?",
+      "Qual colchão é mais confortável: ortopédico ou de espuma?",
+      "Qual é o melhor modelo de micro-ondas: 20L ou 30L?",
+      "O que é melhor para iluminação de ambientes: lâmpada LED ou fluorescente?",
+      "Qual produto tem melhor desempenho: aspirador de pó vertical ou robotizado?",
+      "Qual é o melhor tipo de panela para cozinha: inox ou antiaderente?",
+      "Qual é a melhor opção de cama: box ou cama com cabeceira?",
+      "Comparando as melhores opções de geladeiras, qual tem melhor custo-benefício?",
+      "Qual é o melhor tipo de sofá para quem tem filhos: retrátil ou modular?",
+      "Qual é o melhor produto de limpeza para pisos frios: cerâmica ou porcelanato?"
+    ];
+
     async function enviarPergunta() {
       if (novaPergunta.value.trim() !== "") {
         const valuePergunta = novaPergunta.value;
@@ -81,6 +135,15 @@ export default {
       }
     }
 
+
+    // Função para formatar o texto com base nos asteriscos
+    function formatText(text) {
+      let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>'); // Quando o texto vem com ** ** ele transforma para negrito
+      formattedText = formattedText.replace(/\*/g, '-');  // Quando vier apenas um * ele troca para -
+
+      return formattedText;
+    }
+
     async function reiniciar() {
       try {
         await Axios.put("http://localhost:8000/clear");
@@ -88,6 +151,8 @@ export default {
         console.error("Erro ao reiniciar:", error);
       }
     }
+
+    // Chama a função reiniciar quando a tela for carregada ou recarregada
 
     onMounted(() => {
       reiniciar();
@@ -100,7 +165,8 @@ export default {
       enviarPergunta,
       showBaloes,
       toggleBaloes,
-      baloes
+      baloes,
+      formatText
     };
   }
 }

@@ -58,6 +58,11 @@
   font-weight: normal;
 }
 
+/* Feito para que a classe se aplique em negrito no chat da IA */
+.bold-text {
+  font-weight: bold !important;
+}
+
 body {
   min-height: 100%;
   color: var(--color-text);
