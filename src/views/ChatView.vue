@@ -11,7 +11,11 @@
         <span class="dot"></span>
       </div>
     </div>
-
+      <div v-if="showBaloes" class="baloes-container">
+        <div v-for="(baloon, index) in baloes" :key="index" class="baloon">
+          {{ baloon }}
+        </div>
+      </div>
     <div class="input-container">
       <button class="botao-sugestao" @click="toggleBaloes">
         <i class="fa-solid fa-lightbulb"></i>
@@ -24,12 +28,6 @@
             stroke="#B9B9B9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
-    </div>
-
-    <div v-if="showBaloes" class="baloes-container">
-      <div v-for="(baloon, index) in baloes" :key="index" class="baloon">
-        {{ baloon }}
-      </div>
     </div>
   </div>
 </template>
@@ -271,7 +269,8 @@ button:hover {
 }
 
 .botao-sugestao i {
-  color: #380986; /* Cor roxa para o ícone */
+  color: #380986;
+  /* Cor roxa para o ícone */
   font-size: 24px;
 }
 
