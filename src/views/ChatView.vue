@@ -12,12 +12,12 @@
       </div>
     </div>
       <div v-if="showBaloes" class="baloes-container">
-        <div v-for="(baloon, index) in baloes" :key="index" class="baloon">
+        <div v-for="(baloon, index) in baloesAleatorios" :key="index" class="baloon" @click="selecionarBaloon(baloon)">
           {{ baloon }}
         </div>
       </div>
     <div class="input-container">
-      <button class="botao-sugestao" @click="toggleBaloes">
+      <button class="botao-sugestao" v-if="!showBaloes" @click="toggleBaloes">
         <i class="fa-solid fa-lightbulb"></i>
       </button>
       <input type="text" v-model="novaPergunta" @keyup.enter="enviarPergunta" placeholder="Digite sua mensagem..." />
@@ -45,19 +45,9 @@ export default {
     const isLoading = ref(false);
     const showBaloes = ref(false);
 
-    const baloes = ref([
-      "Comparação de produtos",
-      "Sugestão de produtos",
-      "Tendência de segmentos",
-      "Comparação de produtos"
-    ]);
-
-    function toggleBaloes() {
-      showBaloes.value = !showBaloes.value;
-    }
 
     // Array com as perguntas predefinidas
-    const perguntas = [
+    const perguntas  = [
       "Quais são os melhores produtos para escritório?",
       "Me recomende 5 produtos para decoração de sala de estar.",
       "Quais são os produtos mais bem avaliados para cozinha?",
@@ -109,6 +99,29 @@ export default {
       "Qual é o melhor tipo de sofá para quem tem filhos: retrátil ou modular?",
       "Qual é o melhor produto de limpeza para pisos frios: cerâmica ou porcelanato?"
     ];
+
+    const baloesAleatorios = ref([]);
+
+    function toggleBaloes() {
+      if (!showBaloes.value) {
+        gerarBaloesAleatorios();
+      }
+      showBaloes.value = !showBaloes.value;
+    }
+
+    function gerarBaloesAleatorios() {
+      const copiaPerguntas = [...perguntas];
+      baloesAleatorios.value = [];
+      while (baloesAleatorios.value.length < 5 && copiaPerguntas.length > 0) {
+        const indexAleatorio = Math.floor(Math.random() * copiaPerguntas.length);
+        baloesAleatorios.value.push(copiaPerguntas.splice(indexAleatorio, 1)[0]);
+      }
+    }
+
+    function selecionarBaloon(baloon) {
+      novaPergunta.value = baloon;
+      showBaloes.value = false; // Esconde os balões ao selecionar
+    }
 
     async function enviarPergunta() {
       if (novaPergunta.value.trim() !== "") {
@@ -163,8 +176,9 @@ export default {
       enviarPergunta,
       showBaloes,
       toggleBaloes,
-      baloes,
-      formatText
+      formatText,
+      baloesAleatorios,
+      selecionarBaloon,
     };
   }
 }
